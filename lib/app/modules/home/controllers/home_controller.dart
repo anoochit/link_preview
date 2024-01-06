@@ -10,6 +10,14 @@ class HomeController extends GetxController {
     super.onInit();
 
     // TODO: mock create data
+
+    listPost.add(
+      Post(
+        content:
+            'Happy Holidays from the Firebase team!  https://www.youtube.com/watch?v=gcG0ajhMo0M',
+        timestamp: DateTime.now(),
+      ),
+    );
     listPost.add(
       Post(
         content:
