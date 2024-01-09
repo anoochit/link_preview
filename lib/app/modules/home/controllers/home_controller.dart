@@ -10,43 +10,36 @@ class HomeController extends GetxController {
     super.onInit();
 
     // TODO: mock create data
+    createMockData();
+  }
 
+  createMockData() {
     listPost.add(
       Post(
         content:
             'Happy Holidays from the Firebase team!  https://www.youtube.com/watch?v=gcG0ajhMo0M',
-        timestamp: DateTime.now(),
+        timestamp: DateTime.now().subtract(const Duration(minutes: 10)),
       ),
     );
     listPost.add(
       Post(
         content:
-            'โค้ดตัวอย่าง ตอนที่ 153 -> https://github.com/anoochit/todo_retrofit',
-        timestamp: DateTime.now(),
+            'โค้ดตัวอย่าง ตอนที่ 153 https://github.com/anoochit/todo_retrofit',
+        timestamp: DateTime.now().subtract(const Duration(minutes: 20)),
       ),
     );
     listPost.add(
       Post(
-        content: 'ตอนที่ 153 -> https://www.youtube.com/watch?v=FwzAZ6DVKtc',
-        timestamp: DateTime.now(),
+        content: 'ตอนที่ 153 https://www.youtube.com/watch?v=FwzAZ6DVKtc',
+        timestamp: DateTime.now().subtract(const Duration(minutes: 30)),
       ),
     );
     listPost.add(
       Post(
-        content: 'ตอนที่ 155 -> https://www.youtube.com/watch?v=OE9m_68YApk',
-        timestamp: DateTime.now(),
+        content: 'ตอนที่ 155 https://www.youtube.com/watch?v=OE9m_68YApk',
+        timestamp: DateTime.now().subtract(const Duration(minutes: 40)),
       ),
     );
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   List<Post> getPosts() {

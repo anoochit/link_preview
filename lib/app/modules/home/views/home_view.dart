@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
         onPressed: () {
           // TODO : post new item
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

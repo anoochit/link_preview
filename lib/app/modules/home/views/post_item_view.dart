@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:linkfy_text/linkfy_text.dart';
+import 'package:linkify/linkify.dart';
 import 'package:linkpreview/app/data/models/post.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
@@ -20,9 +24,20 @@ class PostItemView extends GetView {
     final duration = timeago.format(timestamp, locale: 'th');
 
     // TODO : get links
+    List<LinkifyElement> list = linkify(item.content);
+    List<String> links = [];
+    String cleanContent = item.content;
+
+    for (var i in list) {
+      if (i.runtimeType == UrlElement) {
+        links.add(i.originText);
+        cleanContent = cleanContent.replaceAll(i.originText, '');
+      }
+    }
 
     return Card(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // user info
           Padding(
@@ -30,10 +45,10 @@ class PostItemView extends GetView {
             child: Row(
               children: [
                 // avatar
-                CircleAvatar(
+                const CircleAvatar(
                   child: Text('S'),
                 ),
-                Gap(8),
+                const Gap(8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,18 +69,20 @@ class PostItemView extends GetView {
           // post
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: LinkifyText(
-              item.content,
-              linkStyle: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onTap: (url) {
-                // open url
-              },
-            ),
+            child: Text(cleanContent),
           ),
 
           // TODO : add link preview item
+          (links.length > 0)
+              ? AnyLinkPreview(
+                  link: links.first,
+                  bodyMaxLines: 5,
+                  previewHeight: MediaQuery.of(context).size.width * 0.8,
+                  displayDirection: UIDirection.uiDirectionVertical,
+                  backgroundColor: Colors.white,
+                  boxShadow: [],
+                )
+              : Container()
         ],
       ),
     );
